@@ -1,5 +1,5 @@
 {
-  "name": "react-media-context",
+  "name": "@topagentnetwork/react-media-context",
   "version": "1.0.0",
   "description": "React component to provide media query matches in context",
   "main": "dist/MediaContext.js",
