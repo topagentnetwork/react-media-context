@@ -1,5 +1,5 @@
-
 import React from 'react'
+import debounce from 'lodash.debounce'
 
 const defaultQueries = {
   xsmall: 'screen and (max-width: 40em)',
@@ -20,6 +20,7 @@ const connectMediaContext = (config = {}) => (Comp) => {
         ]
       }
       this.match = this.match.bind(this)
+      this.handleMediaChange = debounce(this.handleMediaChange.bind(this), 100)
     }
 
     getChildContext () {
@@ -39,16 +40,20 @@ const connectMediaContext = (config = {}) => (Comp) => {
       this.setState({ media })
     }
 
+    handleMediaChange () {
+      this.match()
+    }
+
     componentDidMount () {
       this.match()
       for (let key in queries) {
-        window.matchMedia(queries[key]).addListener(this.match)
+        window.matchMedia(queries[key]).addListener(this.handleMediaChange)
       }
     }
 
     componentWillUnmount () {
       for (let key in queries) {
-        window.matchMedia(queries[key]).removeListener(this.match)
+        window.matchMedia(queries[key]).removeListener(this.handleMediaChange)
       }
     }
 

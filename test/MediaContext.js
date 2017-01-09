@@ -1,4 +1,3 @@
-
 require('mocha-jsdom')()
 
 import React from 'react'
